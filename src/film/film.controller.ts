@@ -15,6 +15,7 @@ export class FilmsController {
             year: number;
             tags: string;
             img: string;
+            genre: string;
         }
     ): Promise<Film> {
         return this.filmsService.createFilm(data);

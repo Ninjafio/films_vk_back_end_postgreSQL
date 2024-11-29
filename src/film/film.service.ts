@@ -4,7 +4,7 @@ import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class FilmsService {
-    constructor(private prisma: PrismaService) {}
+    constructor(private prismaService: PrismaService) {}
 
         async createFilm(data: {
             title: string;
@@ -15,10 +15,15 @@ export class FilmsService {
             img: string;
             genre: string;
         }): Promise<Film> {
-            return this.prisma.film.create({ data });
+            return this.prismaService.film.create({ data });
         }
 
         async getFilms(): Promise<Film[]> {
-            return this.prisma.film.findMany();
+            return this.prismaService.film.findMany();
         }
+
+        
+    delete(id:number) {
+        return this.prismaService.film.delete({ where: { id:id } });
+    }
 }
