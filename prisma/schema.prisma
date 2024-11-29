@@ -1,0 +1,51 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now()) @map("created_at")
+  lists     List[] // Связь "Один ко многим": Один пользователь -> много постов
+  Token     Token[]
+
+  @@map("users")
+}
+
+model List {
+  id       Int    @id @default(autoincrement())
+  title    String // Название списка
+  content  String // Хранение id фильмов
+  authorId String @map("author_id")
+  author   User   @relation(fields: [authorId], references: [id])
+
+  // Поле "author" связывает Post с User
+  @@map("lists")
+}
+
+model Film {
+  id       Int     @id @default(autoincrement())
+  title    String
+  age      Int
+  descr    String
+  year     Int
+  tags     String
+  isViewed Boolean @default(false) @map("is_viewed")
+  img      String
+  genre    String
+
+  @@map("films")
+}
+
+model Token {
+  token  String   @unique
+  exp    DateTime
+  user   User     @relation(fields: [userId], references: [id])
+  userId String   @map("user_id")
+
+  @@map("tokens")
+}
