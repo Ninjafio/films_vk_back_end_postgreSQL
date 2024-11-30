@@ -8,7 +8,9 @@ export class UserService {
 
     save(user: Partial<User>) {
         return this.prismaService.user.create({ 
-            data: {...user},
+            data: {
+                id: user.id
+            },
          });
     }
 

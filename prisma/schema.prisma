@@ -19,6 +19,7 @@ model User {
 model List {
   id       Int    @id @default(autoincrement())
   title    String // Название списка
+  descr    String // Название списка
   content  String // Хранение id фильмов
   authorId String @map("author_id")
   author   User   @relation(fields: [authorId], references: [id])
