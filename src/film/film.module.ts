@@ -4,8 +4,8 @@ import { FilmsController } from './film.controller';
 import { PrismaModule } from 'src/prisma/prisma.module';
 
 @Module({
-  imports: [PrismaModule],
   providers: [FilmsService],
+  imports: [PrismaModule],
   controllers: [FilmsController]
 })
 export class FilmsModule {}

@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import { FilmsService } from './film.service';
 import { Film } from '@prisma/client';
 
@@ -16,6 +16,7 @@ export class FilmsController {
             tags: string;
             img: string;
             genre: string;
+            country: string;
         }
     ): Promise<Film> {
         return this.filmsService.createFilm(data);
@@ -24,5 +25,15 @@ export class FilmsController {
     @Get()
     async getFilms(): Promise<Film[]> {
         return this.filmsService.getFilms();
+    }
+
+    @Get(':id')
+    findOneUser(@Param('id') id: number) {
+        return this.filmsService.findOne(id);
+    }
+    
+    @Delete(':id')
+    deleteUser(@Param('id') id: number) {
+        return this.filmsService.delete(id);
     }
 }

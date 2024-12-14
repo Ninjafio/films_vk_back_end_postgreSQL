@@ -8,10 +8,13 @@ datasource db {
 }
 
 model User {
-  id        String   @id @default(uuid())
-  createdAt DateTime @default(now()) @map("created_at")
-  lists     List[] // Связь "Один ко многим": Один пользователь -> много постов
-  Token     Token[]
+  id          String   @id @default(uuid())
+  createdAt   DateTime @default(now()) @map("created_at")
+  favorite    String   @default("")
+  viewed      String   @default("")
+  wantToWatch String   @default("") @map("want_to_watch")
+  lists       List[] // Связь "Один ко многим": Один пользователь -> много постов
+  Token       Token[]
 
   @@map("users")
 }
@@ -19,8 +22,8 @@ model User {
 model List {
   id       Int    @id @default(autoincrement())
   title    String // Название списка
-  descr    String // Название списка
-  content  String // Хранение id фильмов
+  descr    String // Описание списка
+  content  String @default("") // Хранение id фильмов
   authorId String @map("author_id")
   author   User   @relation(fields: [authorId], references: [id])
 
@@ -38,6 +41,7 @@ model Film {
   isViewed Boolean @default(false) @map("is_viewed")
   img      String
   genre    String
+  country  String  @default("США Великобритания Франция")
 
   @@map("films")
 }
