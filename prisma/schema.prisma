@@ -32,16 +32,15 @@ model List {
 }
 
 model Film {
-  id       Int     @id @default(autoincrement())
-  title    String
-  age      Int
-  descr    String
-  year     Int
-  tags     String
-  isViewed Boolean @default(false) @map("is_viewed")
-  img      String
-  genre    String
-  country  String  @default("США Великобритания Франция")
+  id      Int    @id @default(autoincrement())
+  title   String
+  age     Int
+  descr   String
+  year    Int
+  tags    String
+  img     String
+  genre   String
+  country String @default("США Великобритания Франция")
 
   @@map("films")
 }
